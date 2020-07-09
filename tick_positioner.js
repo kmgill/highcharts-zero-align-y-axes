@@ -1,5 +1,12 @@
-;
-(function(Highcharts) {
+(function (factory) {
+    "use strict";
+
+    if (typeof module === "object" && module.exports) {
+        module.exports = factory;
+    } else {
+        factory(Highcharts);
+    }
+}(function(Highcharts) {
 
   function TickPositioner() {
     var _self;
@@ -28,7 +35,7 @@
             _self.maxminLookup = {};
             _self.maxmin = [];
             _self.axesCanon = [];
-            
+
             for (var i in chart.axes) {
               var axis = chart.axes[i];
               if (axis.coll === "yAxis") {
@@ -44,7 +51,7 @@
                 _self.maxmin.push({ id: axis.options.index, min: axis.min, max: axis.max });
               }
             }
-            
+
             for (var i in _self.maxmin) {
               _self.maxminLookup[_self.maxmin[i].id] = _self.maxmin[i];
             }
@@ -53,8 +60,8 @@
 
           var _min = _self.maxminLookup[this.options.index].min;
           var _max = _self.maxminLookup[this.options.index].max;
-          
-          // set 0 at top of chart 
+
+          // set 0 at top of chart
           // ['----', '-0--', '---0']
           if (_self.axesCanon[0].min <= 0 && _self.axesCanon[0].max <= 0 && _self.axesCanon[1].min <= 0 && _self.axesCanon[1].max <= 0) {
             _max = 0;
@@ -87,7 +94,7 @@
               _min = 0 - _max;
             }
           }
-          
+
           return createArrayFromRange(_min, _max, 6);
         }
       }
@@ -116,7 +123,7 @@
     var result = [];
     var increase = (end - start) / (n - 1);
     var i;
-    
+
     for (i = start; i < end; i += increase) {
       result.push(correctFloat(i));
     }
@@ -133,7 +140,7 @@
   Highcharts.Chart.prototype.callbacks.push(function(chart) {
     var tickPositioner = new TickPositioner().init();
     var multiple = (chart.axes.length > 2 ? true : false);
-    tickPositioner.zero_align = true;
+    tickPositioner.zero_align = chart.userOptions.alignAxes;
     for (var i in chart.axes) {
       if (chart.axes[i].coll === "yAxis") {
         chart.axes[i].update({
@@ -144,4 +151,4 @@
     chart.redraw();
     chart.axes[0].update();
   });
-}(Highcharts));
+}));
