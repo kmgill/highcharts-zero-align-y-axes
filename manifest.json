@@ -1,6 +1,6 @@
 {
 	"name": "Zero-align y-axes",
-	"version": "1.0.8",
+	"version": "1.0.8.1",
 	"title": "Zero-align y-axes",
 	"author": {
 		"name": "Christos Koumenides",
@@ -33,6 +33,11 @@
 			"name": "Christos Koumenides",
 			"email": "chriskmnds@gmail.com",
 			"url": "https://github.com/chriskmnds"
+		},
+		{
+			"name": "Kevin M. Gill",
+			"email": "apoapsys@gmail.com",
+			"url": "https://github.com/kmgill"
 		}
-	]	
+	]
 }
